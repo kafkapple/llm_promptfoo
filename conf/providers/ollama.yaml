@@ -1,0 +1,9 @@
+
+- id: ollama:gemma3
+  config:
+    api_base: "http://localhost:11434"
+    api_key: "not-needed"
+    model: "{{model}}"
+    temperature: 0.7
+    max_tokens: 2000
+    timeout: 300000

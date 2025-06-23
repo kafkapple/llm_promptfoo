@@ -26,6 +26,3 @@
 - 구체적인 수치와 통계 포함
 - 인과관계와 상관관계 구분
 - 한계점 명시적 언급
-
-Temperature: {{temperature}}
-Model: {{model}} 

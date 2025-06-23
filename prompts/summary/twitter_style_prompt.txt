@@ -22,5 +22,3 @@
 - 친근한 반말체 사용
 - 전문용어는 비유로 설명
 - 이모지 적극 활용
-
-Temperature: {{temperature}} 

@@ -1,0 +1,8 @@
+  - id: "perplexity:sonar"
+    config:
+      api_key: "${PERPLEXITY_API_KEY}"
+      api_base: "https://api.perplexity.ai/chat/completions"
+      model: "{{model}}"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 60000

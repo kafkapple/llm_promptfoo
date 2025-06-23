@@ -5,14 +5,34 @@
 description: "LLM 모델 비교 실험 - 프롬프트별 성능 평가"
 
 prompts:
-  - file://./prompts/summary/summary_prompt.txt
-  # - file://./prompts/summary/twitter_style_prompt.txt
+  - file://./prompts/summary_prompt.txt
+  - file://./prompts/twitter_style_prompt.txt
 
 providers:
-  - file://./conf/providers/openai.yaml
-  # - file://./conf/providers/google.yaml
-  # - file://./conf/providers/perplexity.yaml
-  # - file://./conf/providers/ollama.yaml
+  - id: "google:gemini-1.5-flash"
+    config:
+      api_key: "${GOOGLE_API_KEY}"
+      model: "gemini-1.5-flash"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 60000
+
+  - id: "perplexity:sonar"
+    config:
+      api_key: "${PERPLEXITY_API_KEY}"
+      model: "sonar"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 60000
+
+  - id: "ollama:gemma3"
+    config:
+      api_base: "http://localhost:11434"
+      api_key: "not-needed"
+      model: "gemma3:12b"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 300000
 
 # 자동 조합을 위한 기본 설정
 defaultTest:
@@ -31,8 +51,3 @@ defaultTest:
            - 일관된 설명
         총점 3점 이상 합격
 
-tests: file://./tests/test.csv
-
-outputs:
-  - type: "csv"
-    file: "./outputs/test.csv"
