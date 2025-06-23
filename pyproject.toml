@@ -1,0 +1,20 @@
+# pyproject.toml
+[project]
+name = "my_llm_app"
+version = "0.1.0"
+description = "A flexible LLM application using LiteLLM, Hydra, and Dotenv"
+dependencies = [
+    "litellm",
+    "python-dotenv",
+    "hydra-core",
+    "omegaconf",
+]
+requires-python = ">=3.9"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["llm_runner*"]
+exclude = ["conf*", "outputs*", "tests*"]

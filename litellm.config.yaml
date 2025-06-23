@@ -1,0 +1,36 @@
+model_list:
+  - model_name: gpt-3.5-turbo
+    litellm_params:
+      model: gpt-3.5-turbo
+      api_key: ${OPENAI_API_KEY}
+      api_base: https://api.openai.com/v1
+      timeout: 60
+
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini-1.5-flash
+      api_key: ${GOOGLE_API_KEY}
+      api_base: https://generativelanguage.googleapis.com/v1beta/models
+      timeout: 60
+
+  - model_name: perplexity-sonar
+    litellm_params:
+      model: perplexity/sonar
+      api_key: ${PERPLEXITY_API_KEY}
+      api_base: https://api.perplexity.ai
+      timeout: 60
+
+  - model_name: gemma3
+    litellm_params:
+      model: ollama/gemma3:12b
+      api_base: http://localhost:11434
+      timeout: 300
+
+general_settings:
+  default_model: gpt-3.5-turbo
+  default_api_base: http://localhost:8000/v1
+  default_api_key: not-needed
+
+server_settings:
+  host: 0.0.0.0
+  port: 8000 

@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+
+# Learn more about building a configuration: https://promptfoo.dev/docs/configuration/guide
+
+description: "LLM 모델 비교 실험 - 프롬프트별 성능 평가"
+
+prompts:
+  - file://./prompts/summary_prompt.txt
+  - file://./prompts/twitter_style_prompt.txt
+
+providers:
+  - id: "openai:gpt-3.5-turbo"
+    config:
+      api_base: "http://localhost:8000/v1"
+      api_key: "not-needed"
+      model: "gpt-3.5-turbo"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 60000
+
+  - id: "google:gemini-1.5-flash"
+    config:
+      api_key: "${GOOGLE_API_KEY}"
+      model: "gemini-1.5-flash"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 60000
+
+  - id: "perplexity:sonar"
+    config:
+      api_key: "${PERPLEXITY_API_KEY}"
+      model: "sonar"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 60000
+
+  - id: "ollama:gemma3"
+    config:
+      api_base: "http://localhost:11434"
+      api_key: "not-needed"
+      model: "gemma3:12b"
+      temperature: 0.7
+      max_tokens: 2000
+      timeout: 300000
+
+# 자동 조합을 위한 기본 설정
+defaultTest:
+  vars:
+    query: "Test Time Compute, Reasoning, LLM Agents 최신 연구"
+    temperature: 0.7
+  assert:
+    - type: "llm-rubric"
+      value: |
+        평가 기준:
+        1. 정보성 (2점)
+           - 핵심 내용 포함
+           - 실용적 조언
+        2. 논리성 (2점)
+           - 논리적 흐름
+           - 일관된 설명
+        총점 3점 이상 합격
+
