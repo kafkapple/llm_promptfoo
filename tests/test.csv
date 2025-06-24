@@ -1,0 +1,5 @@
+query,temperature,model,provider,prompt
+"Compositional Generalization",0.7,gpt-3.5-turbo,openai,summary_prompt
+"Episodic Memory inspired AI",0.5,gemini-1.5-flash,google,twitter_style_prompt
+"RAG 시스템 설계",0.3,sonar,perplexity,summary_prompt
+"Agent LLM",0.3,gemma3:12b,ollama,summary_prompt
