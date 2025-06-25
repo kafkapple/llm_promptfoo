@@ -6,12 +6,12 @@ description: "LLM 모델 비교 실험 - 프롬프트별 성능 평가"
 
 prompts:
   - file://./prompts/summary/summary_prompt.txt
-  # - file://./prompts/summary/twitter_style_prompt.txt
+  - file://./prompts/summary/twitter_style_prompt.txt
 
 providers:
   - file://./conf/providers/openai.yaml
-  # - file://./conf/providers/google.yaml
-  # - file://./conf/providers/perplexity.yaml
+  - file://./conf/providers/google.yaml
+  - file://./conf/providers/perplexity.yaml
   # - file://./conf/providers/ollama.yaml
 
 # 자동 조합을 위한 기본 설정

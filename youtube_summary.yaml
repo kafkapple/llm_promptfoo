@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+
+# Learn more about building a configuration: https://promptfoo.dev/docs/configuration/guide
+
+description: "유튜브 영상 요약 프롬프트 비교 실험"
+
+prompts:
+  - file://D:/dev/llm_promptfoo/prompts/summary/v09.txt
+  - file://D:/dev/llm_promptfoo/prompts/summary/v111.txt
+  # - file://D:/dev/llm_promptfoo/prompts/summary/v121.txt
+  # - file://D:/dev/llm_promptfoo/prompts/summary/v131.txt
+  - file://D:/dev/llm_promptfoo/prompts/summary/v2.txt
+providers:
+  # - file://./conf/providers/openai.yaml
+  - file://./conf/providers/google.yaml
+  
+  # - file://./conf/providers/perplexity.yaml
+  # - file://./conf/providers/ollama.yaml
+
+# 자동 조합을 위한 기본 설정
+defaultTest:
+  providers: # 여기에 기본으로 사용할 provider를 명시합니다.
+      - google:gemini-2.5-flash # 위에서 정의한 provider의 ID를 참조합니다
+  vars:
+    query: "이 비디오의 주요 내용을 자세히 요약해줘" #"https://youtu.be/OsAd4HGJS4o?si=VHtgQaBX-MZ1sXgd"
+    temperature: 0.3
+    video_input:
+      file_data:
+        file_uri: "https://youtu.be/Lv3QwcAcDnA?si=bXLPtmbsPmZW7-Eq" # 실제 유튜브 비디오 URL로 변경
+        mime_type: "video/*"
+  assert:
+    - type: "llm-rubric"
+      value: |
+        평가 기준:
+        1. 정보성 (2점)
+           - 핵심 내용 포함
+           - 실용적 조언
+        2. 논리성 (2점)
+           - 논리적 흐름
+           - 일관된 설명
+        총점 3점 이상 합격
+
+# tests: file://./tests/test.csv
+tests:
+  - vars:
+      #query: "https://youtu.be/Lv3QwcAcDnA?si=bXLPtmbsPmZW7-Eq" #"https://youtu.be/OsAd4HGJS4o?si=VHtgQaBX-MZ1sXgd"
+      video_input:
+        file_data:
+          file_uri: "https://youtu.be/Lv3QwcAcDnA?si=bXLPtmbsPmZW7-Eq" # 다른 유튜브 비디오 URL
+          mime_type: "video/*"
+      query: "이 비디오의 주요 내용을 자세히 요약해줘." # 이 테스트에서 사용할 텍스트 프롬프트
+
+outputs:
+  - type: "csv"
+    file: "./outputs/test.csv"
