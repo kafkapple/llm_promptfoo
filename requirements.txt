@@ -1,3 +1,2 @@
 litellm>=1.30.3
-python-dotenv
-promptfoo>=0.50.0 
+python-dotenv 

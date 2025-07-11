@@ -5,13 +5,15 @@ import time
 import logging
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 
 # 로깅 설정
+log_file_path = Path(__file__).parent / 'debug.log'
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('debug.log'),
+        logging.FileHandler(log_file_path),
         logging.StreamHandler(sys.stderr)
     ]
 )
@@ -67,8 +69,9 @@ def get_model_config(model_name, env_vars):
             }
         elif provider_lower == 'ollama':
             # direct REST API 연결
+            api_base = os.getenv('OLLAMA_API_BASE', 'http://localhost:11434')
             return {
-                'api_base': 'http://localhost:11434',
+                'api_base': api_base,
                 'api_key': 'not-needed',
                 'provider': 'ollama',
                 'model': actual_model,
@@ -177,6 +180,10 @@ def main():
         # 4. 필수 필드 추출
         prompt = data.get("prompt")
         vars_data = data.get("vars", {})
+        
+        # query가 있으면 prompt로 사용 (promptfoo에서 query 변수를 사용하는 경우)
+        if not prompt and vars_data.get("query"):
+            prompt = vars_data["query"]
         
         # 모델명 결정 (vars에서 model이 있으면 사용, 없으면 기본값)
         model = vars_data.get("model", os.getenv("LITELLM_MODEL", "gpt-3.5-turbo"))
